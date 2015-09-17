@@ -648,7 +648,10 @@ end;
 procedure IBitmap.Save(fileName: string);
 begin
   try
-    self.bmp.Save(fileName);
+    if (!self.Editable) then
+      self.bmp.Save(fileName)
+    else
+      raise new Exception('Can not to use "Save" method: An example of IBitmap is already editable.');
   except
     on e: System.Exception do
       raise new Exception('Can not to use "Save" method. ' + e.Message);
